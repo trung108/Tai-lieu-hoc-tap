@@ -804,18 +804,20 @@ function compressImageToFile(file, quality = 0.7) {
 // ==========================================
 // Khởi tạo và kết nối nhà kho IndexedDB
 // ==========================================
+const DB_NAME = "StudyMaterialsDB"; // Đã bỏ dấu cách để đồng nhất
+const DB_VERSION = 2; // TĂNG LÊN 2 ĐỂ ÉP TRÌNH DUYỆT TẠO KHO 'files'
+
 function initIndexedDB() {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("StudyMaterialsDB", 1);
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
         
-        // Nếu nhà kho chưa có bảng 'files', tiến hành tạo mới
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
+            // Nếu chưa có kho 'files' thì tạo mới
             if (!db.objectStoreNames.contains('files')) {
                 db.createObjectStore('files');
             }
         };
-        
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject(request.error);
     });
@@ -826,19 +828,16 @@ function initIndexedDB() {
 // =============================
 function saveFileToIndexedDB(key, file) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("StudyMaterialsDB", 1);
-        
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const transaction = db.transaction(['files'], 'readwrite');
             const store = transaction.objectStore('files');
-            
-            const putRequest = store.put(file, key); 
+            const putRequest = store.put(file, key);
             
             putRequest.onsuccess = () => resolve(true);
             putRequest.onerror = () => reject(putRequest.error);
         };
-        
         request.onerror = () => reject(request.error);
     });
 }
@@ -848,19 +847,16 @@ function saveFileToIndexedDB(key, file) {
 // ============================================================
 function getFileFromIndexedDB(key) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("StudyMaterialsDB", 1);
-        
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
         request.onsuccess = (event) => {
             const db = event.target.result;
-            const transaction = db.transaction(['files'], 'readonly'); 
+            const transaction = db.transaction(['files'], 'readonly');
             const store = transaction.objectStore('files');
-            
             const getRequest = store.get(key);
             
             getRequest.onsuccess = () => resolve(getRequest.result);
             getRequest.onerror = () => reject(getRequest.error);
         };
-        
         request.onerror = () => reject(request.error);
     });
 }
@@ -870,25 +866,20 @@ function getFileFromIndexedDB(key) {
 // ============================================================
 function deleteFileFromIndexedDB(key) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("StudyMaterialsDB", 1);
-        
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
         request.onsuccess = (event) => {
             const db = event.target.result;
-            
             // Kiểm tra xem kho 'files' có tồn tại không trước khi xóa
             if (!db.objectStoreNames.contains('files')) {
                 return resolve(true);
             }
-
-            const transaction = db.transaction(['files'], 'readwrite'); 
+            const transaction = db.transaction(['files'], 'readwrite');
             const store = transaction.objectStore('files');
-            
             const deleteRequest = store.delete(key);
             
             deleteRequest.onsuccess = () => resolve(true);
             deleteRequest.onerror = () => reject(deleteRequest.error);
         };
-        
         request.onerror = () => reject(request.error);
     });
 }
