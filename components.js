@@ -264,7 +264,7 @@ class HeaderComponent extends HTMLElement {
         // 1. Render giao diện
         this.innerHTML = `
         <header class="navbar">
-            <div class="brand-container" onclick="window.location.href='hindex.html'" style="cursor: pointer;">
+            <div class="brand-container" onclick="window.location.href='index.html'" style="cursor: pointer;">
                 <img src="https://hcmut.edu.vn/img/nhanDienThuongHieu/01_logobachkhoatoi.png" class="logo" alt="Logo">
                 <div class="logo-text">
                     <span class="line-1">VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY</span>
@@ -1005,11 +1005,22 @@ async function handleSave() {
         const btn1Input = document.getElementById('edit-btn1-file');
         const btn2Input = document.getElementById('edit-btn2-file');
         
+        // ==========================================
+        // LƯU FILE TÀI LIỆU LÝ THUYẾT
+        // ==========================================
         customData.btn1Name = document.getElementById('edit-btn1-name').value || "Đề cương môn học";
         if (btn1Input.files[0] && isValidFileSize(btn1Input.files[0], 'edit-btn1-file')) {
             let fileToSave = btn1Input.files[0];
+            
             // Nếu tải lên ảnh -> Nén trước khi đưa vào IndexedDB
-            if (fileToSave.type.startsWith('image/')) fileToSave = await compressImageToFile(fileToSave);
+            if (fileToSave.type.startsWith('image/')) {
+                fileToSave = await compressImageToFile(fileToSave);
+            } 
+            // TRỊ LỖI ĐỨNG WEB: Băm nhỏ file PDF trước khi lưu
+            else if (fileToSave.type === 'application/pdf') {
+                const buffer = await fileToSave.arrayBuffer();
+                fileToSave = new Blob([buffer], { type: 'application/pdf' });
+            }
             
             await saveFileToIndexedDB(`${currentSubjectId}_btn1File`, fileToSave);
             customData.hasBtn1File = true;
@@ -1024,7 +1035,15 @@ async function handleSave() {
         customData.btn2Name = document.getElementById('edit-btn2-name').value || "Nội quy môn học";
         if (btn2Input.files[0] && isValidFileSize(btn2Input.files[0], 'edit-btn2-file')) {
             let fileToSave = btn2Input.files[0];
-            if (fileToSave.type.startsWith('image/')) fileToSave = await compressImageToFile(fileToSave);
+            
+            if (fileToSave.type.startsWith('image/')) {
+                fileToSave = await compressImageToFile(fileToSave);
+            }
+            // TRỊ LỖI ĐỨNG WEB: Băm nhỏ file PDF trước khi lưu
+            else if (fileToSave.type === 'application/pdf') {
+                const buffer = await fileToSave.arrayBuffer();
+                fileToSave = new Blob([buffer], { type: 'application/pdf' });
+            }
 
             await saveFileToIndexedDB(`${currentSubjectId}_btn2File`, fileToSave);
             customData.hasBtn2File = true;
@@ -1046,7 +1065,15 @@ async function handleSave() {
             customData.labBtn1Name = document.getElementById('edit-lab-btn1-name').value || "Báo cáo mẫu";
             if (labBtn1Input.files[0] && isValidFileSize(labBtn1Input.files[0], 'edit-lab-btn1-file')) {
                 let fileToSave = labBtn1Input.files[0];
-                if (fileToSave.type.startsWith('image/')) fileToSave = await compressImageToFile(fileToSave);
+                
+                if (fileToSave.type.startsWith('image/')) {
+                    fileToSave = await compressImageToFile(fileToSave);
+                }
+                // TRỊ LỖI ĐỨNG WEB: Băm nhỏ file PDF trước khi lưu
+                else if (fileToSave.type === 'application/pdf') {
+                    const buffer = await fileToSave.arrayBuffer();
+                    fileToSave = new Blob([buffer], { type: 'application/pdf' });
+                }
 
                 await saveFileToIndexedDB(`${currentSubjectId}_labBtn1File`, fileToSave);
                 customData.hasLabBtn1File = true;
@@ -1061,7 +1088,15 @@ async function handleSave() {
             customData.labBtn2Name = document.getElementById('edit-lab-btn2-name').value || "Hướng dẫn thí nghiệm";
             if (labBtn2Input.files[0] && isValidFileSize(labBtn2Input.files[0], 'edit-lab-btn2-file')) {
                 let fileToSave = labBtn2Input.files[0];
-                if (fileToSave.type.startsWith('image/')) fileToSave = await compressImageToFile(fileToSave);
+                
+                if (fileToSave.type.startsWith('image/')) {
+                    fileToSave = await compressImageToFile(fileToSave);
+                }
+                // TRỊ LỖI ĐỨNG WEB: Băm nhỏ file PDF trước khi lưu
+                else if (fileToSave.type === 'application/pdf') {
+                    const buffer = await fileToSave.arrayBuffer();
+                    fileToSave = new Blob([buffer], { type: 'application/pdf' });
+                }
 
                 await saveFileToIndexedDB(`${currentSubjectId}_labBtn2File`, fileToSave);
                 customData.hasLabBtn2File = true;
@@ -1073,8 +1108,8 @@ async function handleSave() {
                 await deleteFileFromIndexedDB(`${currentSubjectId}_labBtn2File`);
             }
         }
-
-        // Ghi phần chữ, thông tin cấu hình vào LocalStorage
+        
+        // Lưu các thông tin text vào LocalStorage như cũ
         localStorage.setItem(`custom_data_${currentSubjectId}`, JSON.stringify(customData));
         
         // Cho trình duyệt nghỉ 100ms giải phóng luồng IO
