@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title id="page-title">Wed học tập</title>
+    <link rel="stylesheet" href="stylehk.css"> 
+    <!-- thêm biểu tượng -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
+
+    <!-- icon trang web -->
+    <link rel="icon" type="image/jpg" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfDydB9KjwHwdC66BM4qykDnaQ7sLW45fT3w&s">
+
+<body data-page-id="index">
+    <!-- Lấy hiệu ứng mưa từ file components.js  -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Lấy header từ file components.js -->
+    <header-component></header-component>
+
+    <div style="position: fixed; top: 90px; right: 20px; z-index: 1000;">
+        <button onclick="openGuideModal()" class="btn-glow" style="padding: 10px 18px; background: #00e5ff; color: #000; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,229,255,0.3);">
+            <i class="fa-solid fa-book"></i> Hướng dẫn
+        </button>
+
+        <button onclick="openDataModal()" class="btn-glow" style="padding: 10px 18px; background: #2ecc71; color: #000; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(46,204,113,0.3);">
+            <i class="fa-solid fa-arrows-rotate"></i> Chuyển đổi dữ liệu
+        </button>
+    </div>
+
+        <main class="content">
+            </main>
+
+<main class="content">
+    <div class="image-box">
+        <!-- ID 'dynamic-title' để cập nhật tên file -->
+        <h2 class="image-title" id="dynamic-title">Thời Khóa Biểu Của Tôi</h2>
+        
+        <img src="https://cdn2.fptshop.com.vn/unsafe/800x0/mau_thoi_khoa_bieu_dep_cap_2_4_158a7ee4b9.png" alt="TKB" class="my-photo" id="display-tkb">
+        
+        <div class="nav-buttons">
+            <!-- Ẩn input này đi và dùng label để kích hoạt -->
+            <input type="file" id="upload-tkb" accept="image/*" hidden>
+            <label for="upload-tkb" class="custom-button" style="padding: 25px 50px; font-size: 20px; background: #e84614; color: white">
+                Thay đổi thời khoá biểu
+            </label>
+        </div>
+    </div>
+        
+    <div id="welcome-screen" style="text-align: center; padding-top: 40px;">
+        <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
+            
+            <button class="custom-button" onclick="openScoreModal()" style="padding: 25px 50px; background: #007AFF; color: white; font-size: 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Xem điểm
+            </button>
+
+            <button class="custom-button" onclick="startSystem()" style="padding: 25px 50px; font-size: 20px; background: #13c430; color: white">
+                Start
+            </button>
+
+            <button id="edit-card-btn" class="custom-button" onclick="toggleEditMode()" style="padding: 25px 50px; font-size: 20px; background: #9b59b6; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">
+                Thay đổi môn học
+            </button>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <div class="card-container">
+            </div>
+    </div>
+
+    <div class="card-container">
+
+   <a href="javascript:void(0)" class="card" onclick="openExamModal()">
+       <i class="fa-solid fa-calendar-days"></i>
+       <h3>Lịch thi</h3>
+       <p>Lịch học và lịch thi học kỳ này</p>
+   </a>
+
+    <a href="subject.html?id=1" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 1</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=2" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 2</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=3" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 3</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=4" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 4</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=5" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 5</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=6" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 6</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=7" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 7</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=8" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 8</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=9" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 9</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=10" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 10</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+
+    <a href="subject.html?id=11" class="card">
+        <i class="fa-solid fa-wave-square card-icon"></i>
+        <h3>Tên môn học 11</h3>
+        <p>Tên giảng viên</p>
+        <p class="lab-teacher" style="display: none; color: #ffcc00; font-size: 14px;">Giảng viên Lab</p>
+    </a>
+</div>
+</main>
+
+    <!-- Lấy footer từ file components.js --> 
+    <footer-component></footer-component>
+    <script src="components.js"></script>
+    <script src="dashboard.js"></script>
+
+    <div id="guideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; backdrop-filter: blur(8px); overflow-y: auto;">
+    <div style="background: #1a1a1a; width: 95%; max-width: 600px; margin: 50px auto; padding: 30px; border-radius: 25px; border: 1px solid #333; color: #e0e0e0; line-height: 1.6;">
+        
+        <h2 style="text-align: center; color: #00e5ff; margin-bottom: 25px;"><i class="fa-solid fa-book-open"></i> Hướng dẫn sử dụng</h2>
+        
+        <div style="display: flex; flex-direction: column; gap: 0px;">
+                <strong style="color: #ffcc00;">Lời nói đầu</strong>
+                <p style="margin: 0px 0 0 0;">- Đây là dự án cá nhân nhằm mục đích quản lý và lưu trữ các tài liệu học tập, hoàn toàn miễn phí và không sử dụng cho bất kỳ mục đích nào khác. </p>
+                <p style="margin: 1px 0 0 0;">- Để sử dụng thì người dùng cần tải tài liệu (Slide, File PDF, Video...) lên các nền tảng lưu trữ đám mây (như Google Drive, OneDrive). Sau đó, copy đường link chia sẻ và dán vào hệ thống trang web này. Khi muốn xem tài liệu chỉ cần bấm vào nút lưu trữ đường link, hệ thống sẽ tự động đưa bạn đến trang web chứa tài liệu đó.</p>
+                <p style="margin: 1px 0 0 0;">- Sau đây là vài hướng dẫn cụ thể về các chức năng trên trang web, chúc các bạn có được một năm học thật hiệu quả. >.< </p>
+            </div>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="background: rgba(255, 204, 0, 0.1); border-left: 4px solid #ffcc00; padding: 15px; border-radius: 8px;">
+                <strong style="color: #ffcc00;">1. Tải Thời khoá biểu & Lịch thi & Bảng điểm:</strong>
+                <p style="margin: 5px 0 0 0;">Bấm trực tiếp vào nút <b>Thay đổi thời khoá biểu</b>, <b>Xem điểm</b> hoặc thẻ <b>Lịch thi</b>, sau đó tìm ảnh trên máy và tải lên</p>
+            </div>
+
+            <div style="background: rgba(74, 255, 89, 0.1); border-left: 4px solid #4aff59; padding: 15px; border-radius: 8px;">
+                <strong style="color: #4aff59;">2. Thay đổi thông tin Môn học, Giảng viên:</strong>
+                <p style="margin: 5px 0 0 0;">Nhấn vào nút <b>Thay đổi môn học</b> để đổi tên môn học và tên giảng viên trên thẻ cho phù hợp với năm học hiện tại.</p>
+            </div>
+
+            <div style="background: rgba(74, 158, 255, 0.1); border-left: 4px solid #3680ff; padding: 15px; border-radius: 8px;">
+                <strong style="color: #3680ff;">3. Bật phần Thí nghiệm (Lab):</strong>
+                <p style="margin: 5px 0 0 0;">Trong bảng chỉnh sửa môn học, hãy tích vào ô <b>"Có thực hành/Lab"</b> nếu môn đó có phần thí nghiệm, sau đó ghi thêm tên giảng viên Lab. Khi bạn truy cập vào môn học đó, phần tài liệu báo cáo và tài liệu Lab sẽ tự động hiển thị.</p>
+            </div>
+
+            <div style="background: rgba(235, 84, 255, 0.1); border-left: 4px solid #cf4aff; padding: 15px; border-radius: 8px;">
+                <strong style="color: #cf4aff;">4. Thay đổi Icon môn học</strong>
+                <p style="margin: 5px 0 0 0;">Trong bảng chỉnh sửa môn học, hãy bấm vào icon trên tấm thẻ, hệ thống sẽ đưa ra danh sách các icon có sẵn để bạn lựa chọn, các icon này sẽ tăng độ nhận diện và trực quan hơn cho môn học của bạn.</p>
+            </div>
+
+            <div style="background: rgba(249, 113, 113, 0.1); border-left: 4px solid #d81b1b; padding: 15px; border-radius: 8px;">
+                <strong style="color: #d81b1b;">5. Lưu ý quan trọng:</strong>
+                <ul style="margin: 5px 0 0 20px; padding: 0;">
+                    <li>Các file/ảnh bạn tải lên sẽ được <b>lưu trực tiếp trên trình duyệt của thiết bị này</b> (Local Storage và IndexDB). Không tự động đồng bộ sang máy khác.</li>
+                    <li>Các dữ liệu trong Local Storage có thể bị mất trong các trường hợp: Xoá dữ liệu duyệt web, truy cập web bằng chế độ ẩn danh, cài các tiện ích mở rộng (Extensions) hoặc phần mềm dọn dẹp xoá dữ liệu, gỡ cài đặt trình duyệt hoặc cài lại hệ điều hành,...</li>
+                    <li>Trước khi có các thao tác xoá dữ liệu web, bạn nên lấy file back_up.JSON ở phần <b>Chuyển đổi dữ liệu</b> để lưu lại các tài liệu trên web</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 25px; text-align: center;">
+            <button onclick="closeGuideModal()" style="padding: 12px 30px; background: #333; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s;">Đã hiểu & Đóng</button>
+        </div>
+        
+    </div>
+</div>
+
+
+        <div id="dataModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; backdrop-filter: blur(8px); overflow-y: auto;">
+            <div style="background: #1a1a1a; width: 95%; max-width: 550px; margin: 100px auto; padding: 30px; border-radius: 25px; border: 1px solid #333; color: #e0e0e0; line-height: 1.6;">
+                
+                <h2 style="text-align: center; color: #2ecc71; margin-bottom: 20px;"><i class="fa-solid fa-database"></i> Sao lưu & Chuyển đổi dữ liệu</h2>
+                
+                <div style="background: rgba(46, 204, 113, 0.1); border-left: 4px solid #2ecc71; padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 14px;">
+                    <strong style="color: #2ecc71;">💡 Hướng dẫn sao lưu:</strong>
+                    <p style="margin: 5px 0 0 0;">Do dữ liệu web (Tên môn học, Link tài liệu, Hình nền...) được lưu trực tiếp trên trình duyệt của máy này. Nếu bạn muốn <b>mang sang máy tính khác</b> hoặc <b>đề phòng bị mất khi xóa dữ liệu web</b>, hãy sử dụng chức năng này:</p>
+                    <ul style="margin: 8px 0 0 20px; padding: 0;">
+                        <li><b>Xuất dữ liệu:</b> Tải về một file sao lưu đuôi <code style="color:#ffcc00">.json</code> chứa toàn bộ nội dung đã lưu của bạn.</li>
+                        <li><b>Nhập dữ liệu:</b> Chọn file <code style="color:#ffcc00">.json</code> đã xuất trước đó để khôi phục lại toàn bộ dữ liệu trên trình duyệt mới.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="closeDataModal()" style="padding: 10px 18px; background: #444; color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s;">Bỏ qua</button>
+                    
+                    <button onclick="exportMyData()" style="padding: 10px 18px; background: #2ecc71; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(46,204,113,0.2);">Xuất dữ liệu dự phòng</button>
+                    
+                    <button onclick="document.getElementById('import-file').click()" style="padding: 10px 18px; background: #e67e22; color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(230,126,34,0.2);">Nhập dữ liệu cũ</button>
+                </div>
+                
+                <input type="file" id="import-file" style="display: none;" onchange="importMyData(event)" accept=".json">
+            </div>
+        </div>
+
+        <div id="iconPickerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99999; backdrop-filter: blur(5px);">
+            <div style="background: #1a1a1a; width: 90%; max-width: 450px; margin: 120px auto; padding: 25px; border-radius: 20px; border: 1px solid #333; color: #fff; text-align: center;">
+                <h3 style="margin-top: 0; color: #ffcc00;"><i class="fa-solid fa-icons"></i> Chọn biểu tượng môn học</h3>
+                <p style="font-size: 13px; color: #aaa; margin-bottom: 20px;">Nhấp vào một biểu tượng bên dưới để thay đổi:</p>
+                
+                <div id="icon-grid-container" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; max-height: 250px; overflow-y: auto; padding: 10px; background: #111; border-radius: 12px; border: 1px solid #222;">
+                    <div class="selectable-icon" data-icon="fa-solid fa-wave-square" title="Sóng/Tần số"><i class="fa-solid fa-wave-square card-icon"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-book" title="Sách"><i class="fa-solid fa-book"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-microscope" title="Thí nghiệm"><i class="fa-solid fa-microscope"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-calculator" title="Toán học"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-laptop-code" title="Tin học/Code"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-atom" title="Vật lý/Hạt nhân"><i class="fa-solid fa-atom"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-flask" title="Hóa học"><i class="fa-solid fa-flask"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-compass-drafting" title="Bản vẽ/Cơ khí"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-chart-line" title="Kinh tế/Đồ thị"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-brain" title="Trí tuệ nhân tạo"><i class="fa-solid fa-brain"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-globe" title="Địa lý/Mạng"><i class="fa-solid fa-globe"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-pen-nib" title="Viết lách"><i class="fa-solid fa-pen-nib"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-graduation-cap" title="Tốt nghiệp"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-calculator" title="Toán học/Máy tính"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-square-root-variable" title="Toán/Căn bậc 2"><i class="fa-solid fa-square-root-variable"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-dna" title="Công nghệ Sinh học"><i class="fa-solid fa-dna"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-satellite-dish" title="Vệ tinh/Viễn thông"><i class="fa-solid fa-satellite-dish"></i></div>
+                    
+                    <div class="selectable-icon" data-icon="fa-solid fa-microchip" title="Vi mạch/VXL"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-network-wired" title="Mạng máy tính"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-robot" title="Trí tuệ nhân tạo (AI)"><i class="fa-solid fa-robot"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-gear" title="Cơ khí/Hệ thống"><i class="fa-solid fa-gear"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-screwdriver-wrench" title="Bảo trì/Sửa chữa"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-bolt" title="Điện/Năng lượng"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-plug" title="Điện tử"><i class="fa-solid fa-plug"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-code-branch" title="Lập trình"><i class="fa-solid fa-code-branch"></i></div>
+
+                    <div class="selectable-icon" data-icon="fa-solid fa-microchip" title="Vi xử lý"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-tower-broadcast" title="Tín hiệu"><i class="fa-solid fa-tower-broadcast"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-car" title=""><i class="fa-solid fa-car"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-car-battery" title="Năng lượng"><i class="fa-solid fa-car-battery"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-gears" title="Hệ thống"><i class="fa-solid fa-gears"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-tree-city" title="Môi trường"><i class="fa-solid fa-tree-city"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-people-group" title="Xã hội"><i class="fa-solid fa-people-group"></i></div>
+                    <div class="selectable-icon" data-icon="fa-solid fa-terminal" title="Ngôn ngữ lập trình"><i class="fa-solid fa-terminal"></i></div>
+                    <div class="selectable-icon" data-icon="fa-regular fa-percent" title="Xác suất"><i class="fa-regular fa-percent"></i></div>
+                    <div class="selectable-icon" data-icon="ffa-solid fa-bug-slash" title="Debug"><i class="fa-solid fa-bug-slash"></i></div>
+                </div>
+
+                <div style="margin-top: 20px; text-align: right;">
+                    <button onclick="closeIconPicker()" style="padding: 8px 18px; background: #444; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Đóng</button>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>

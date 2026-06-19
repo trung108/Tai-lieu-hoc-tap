@@ -1,0 +1,234 @@
+    /* thêm hiệu ứng mưa ma trận  */
+    #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    #matrix-canvas { transition: opacity 2s ease-out; }
+
+        body {margin: 0; font-family: sans-serif;
+            background-image: url('https://img.pikbest.com/ai/illus_our/20230427/37984e6f61c4b6eddb8c816cbd595701.jpg!bw800'); /* Thay link ảnh của bạn vào đây */
+            background-size: cover;      /* Ảnh phủ kín toàn màn hình */
+            background-attachment: fixed; /* Ảnh đứng yên khi bạn cuộn trang (hiệu ứng Parallax) */
+            background-position: center;  /* Căn ảnh vào giữa */
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 0;
+        }
+        .navbar {background-color: #007AFF;padding: 10px 20px;display: flex;justify-content: space-between;align-items: center;height: 60px; }
+
+        .brand-container { display: flex; align-items: center; gap: 8px; }
+        .logo { height: 55px; width: auto; border-radius: 5px; }
+        .logo-text { display: flex; flex-direction: column; line-height: 1.2; font-weight: bold; }
+        .line-1 { color: white; font-size: 10px; }
+        .line-2 { color: white; font-size: 14px; }
+
+        .search-container { display: flex; }
+        .search-container input { padding: 8px; border: none; border-radius: 4px 0 0 4px; outline: none; }
+        .search-container button {
+            padding: 8px 15px; background-color: #0056b3; color: white;
+            border: none; border-radius: 0 4px 4px 0; cursor: pointer;
+        }
+
+        .content { padding: 10 20px; text-align: center; }
+        .image-box { display: flex; flex-direction: column; align-items: center; }
+        .image-title { margin-bottom: 10px; margin-top: 50px; color: #f9f7f7; font-size: 35px; }
+        .my-photo { width: 90%; max-width: 1100px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        
+        .nav-buttons { margin-top: 30px; }
+        /* Định nghĩa giao diện nút */
+        .custom-button { padding: 25px 50px; color: white; font-size: 20px; border: none; border-radius: 5px; cursor: pointer; transition: 0.4s; }
+
+        .custom-button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 122, 255, 0.6); filter: brightness(1.2); }
+
+        footer { background-color: #333; color: white; padding: 30px 0; text-align: center; margin-top: 50px; }
+
+        .footer-links { margin-bottom: 20px; }
+
+        .footer-links a { color: white; text-decoration: none; margin: 0 15px; font-size: 14px; transition: color 0.3s; }
+
+        .footer-links a:hover { color: #007AFF; }
+
+        .social-icons a { color: white; font-size: 24px; margin: 0 10px; transition: transform 0.3s, color 0.3s; display: inline-block; }
+
+        .social-icons a:hover { transform: scale(1.2); }
+
+        .fb:hover { color: #1877F2; } .yt:hover { color: #FF0000; } .web:hover { color: #007AFF; }
+
+        .copyright { font-size: 12px; margin-top: 20px; opacity: 0.6; }
+
+        h2 { text-align: center; color: #ffff00; font-size: 40px; text-shadow: 2px 2px 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(0, 0, 0, 1); }
+
+        .card-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 50px 20px; padding-top: 0px; }
+
+        .card { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 30px; width: 280px; text-decoration: none; color: white; text-align: center; transition: 0.4s; display: flex; flex-direction: column; align-items: center; }
+        .card.show { opacity: 1; transform: translateY(0); }
+
+        .card:hover { transform: translateY(-10px); background: rgba(0, 122, 255, 0.3); border-color: #00ff62; box-shadow: 0 10px 30px rgba(0, 255, 98, 0.3); }
+
+        .card i { font-size: 40px; margin-bottom: 15px; color: #00ff62; }
+
+        .card h3 { margin: 10px 0; font-size: 22px; }
+
+        .card p { font-size: 14px; opacity: 0.8; line-height: 1.5; }
+
+        .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 122, 255, 0.6); filter: brightness(1.2); }
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #1a1a1a; /* Màu tối cho hợp với giao diện matrix */
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+    color: white;
+    border: 1px solid #13c430;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px; right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #ff4d4d;
+}
+
+.image-container {
+    margin-top: 10px;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+/* Hiệu ứng khi di chuột vào phần đang sửa thẻ môn học */
+[contenteditable="true"]:focus {
+    outline: 2px solid #00ff62;
+    background: rgba(0, 255, 98, 0.1) !important;
+    border-radius: 4px;
+}
+
+.editing-mode {
+    cursor: cell !important; /* Đổi icon chuột thành dấu cộng để biết đang chỉnh văn bản */
+}
+
+.selectable-icon {
+    font-size: 24px;
+    padding: 10px;
+    background: #222;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #e0e0e0;
+}
+.selectable-icon:hover {
+    background: #ffcc00;
+    color: #000;
+    transform: scale(1.15);
+}
+
+/*============================
+ CSS cho Hộp gợi ý tìm kiếm 
+==============================*/
+.suggestions-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: calc(100% - 70px); /* Kích thước trừ đi độ rộng của nút Tìm */
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    text-align: left;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
+
+/* =========================================
+   GIAO DIỆN HỘP GỢI Ý TÌM KIẾM BẢN PREMIUM
+   ========================================= */
+
+/* 1. Khung hộp chứa tổng thể */
+.suggestions-box {
+    position: absolute;
+    top: calc(100% + 8px); /* Cách thanh tìm kiếm 1 khoảng nhỏ 8px cho thoáng */
+    left: 0;
+    width: calc(100% - 70px); /* Bằng đúng chiều dài thanh input, trừ đi nút Tìm */
+    background-color: #ffffff; /* Nền trắng tinh khôi */
+    border: 1px solid #e0e0e0; /* Viền mỏng, nhạt tinh tế */
+    border-radius: 10px; /* Bo góc tròn trịa hiện đại */
+    max-height: 320px; /* Tăng chiều cao để hiển thị được nhiều môn hơn */
+    overflow-y: auto;
+    
+    /* TUYỆT CHIÊU CHỐNG ĐÈ: Bắt buộc nằm trên mọi thứ */
+    z-index: 9999 !important; 
+    
+    /* Đổ bóng 3D để hộp nổi bật lên hẳn so với nền và các nút ở dưới */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 2. Từng dòng tùy chọn môn học */
+.suggestion-item {
+    padding: 12px 18px; /* Tăng khoảng cách cho dễ bấm */
+    cursor: pointer;
+    color: #444444; /* Màu chữ xám đen thanh lịch */
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+    font-weight: 500; /* Chữ đậm vừa phải */
+    text-align: left;
+    
+    /* Hiệu ứng chuyển động mượt mà khi rê chuột */
+    transition: all 0.2s ease-in-out; 
+}
+
+/* Ẩn dòng kẻ dưới cùng của phần tử cuối */
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+/* 3. Hiệu ứng khi rê chuột (Hover) vào tùy chọn */
+.suggestion-item:hover {
+    background-color: #e8f4fd; /* Đổi nền thành màu xanh nhạt mát mắt */
+    color: #007bff; /* Đổi chữ thành màu xanh dương đậm */
+    padding-left: 25px; /* Hiệu ứng chữ trượt nhẹ sang phải cực kỳ chuyên nghiệp */
+    font-weight: 600; /* Chữ đậm lên một chút */
+}
+
+/* 4. Tút lại thanh cuộn (Scrollbar) cho đẹp (Dành cho Chrome, Safari) */
+.suggestions-box::-webkit-scrollbar {
+    width: 6px;
+}
+.suggestions-box::-webkit-scrollbar-track {
+    background: transparent; 
+}
+.suggestions-box::-webkit-scrollbar-thumb {
+    background: #c1c1c1; 
+    border-radius: 10px;
+}
+.suggestions-box::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8; 
+}
