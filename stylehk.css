@@ -132,103 +132,66 @@
     transform: scale(1.15);
 }
 
-/*============================
- CSS cho Hộp gợi ý tìm kiếm 
-==============================*/
+/* =========================================================
+   1. GIAO DIỆN HỘP GỢI Ý TÌM KIẾM (DARK MODE PREMIUM)
+   ========================================================= */
+
 .suggestions-box {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px); 
     left: 0;
-    width: calc(100% - 70px); /* Kích thước trừ đi độ rộng của nút Tìm */
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    max-height: 250px;
+    width: calc(100% - 70px); 
+    background-color: #e2dddd; 
+    border: 1px solid #333333; /* Viền tối mờ */
+    border-radius: 10px; 
+    max-height: 320px; 
     overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-    color: #333;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    text-align: left;
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-.suggestion-item:hover {
-    background-color: #f0f0f0;
-    color: #007bff;
-}
-
-/* =========================================
-   GIAO DIỆN HỘP GỢI Ý TÌM KIẾM BẢN PREMIUM
-   ========================================= */
-
-/* 1. Khung hộp chứa tổng thể */
-.suggestions-box {
-    position: absolute;
-    top: calc(100% + 8px); /* Cách thanh tìm kiếm 1 khoảng nhỏ 8px cho thoáng */
-    left: 0;
-    width: calc(100% - 70px); /* Bằng đúng chiều dài thanh input, trừ đi nút Tìm */
-    background-color: #ffffff; /* Nền trắng tinh khôi */
-    border: 1px solid #e0e0e0; /* Viền mỏng, nhạt tinh tế */
-    border-radius: 10px; /* Bo góc tròn trịa hiện đại */
-    max-height: 320px; /* Tăng chiều cao để hiển thị được nhiều môn hơn */
-    overflow-y: auto;
-    
-    /* TUYỆT CHIÊU CHỐNG ĐÈ: Bắt buộc nằm trên mọi thứ */
     z-index: 9999 !important; 
-    
-    /* Đổ bóng 3D để hộp nổi bật lên hẳn so với nền và các nút ở dưới */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); /* Bóng đổ đậm hơn cho nền tối */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 2. Từng dòng tùy chọn môn học */
 .suggestion-item {
-    padding: 12px 18px; /* Tăng khoảng cách cho dễ bấm */
+    padding: 12px 18px; 
     cursor: pointer;
-    color: #444444; /* Màu chữ xám đen thanh lịch */
-    border-bottom: 1px solid #f0f0f0;
+    color: #000000; 
+    border-bottom: 1px solid #2a2a2a; /* Đường kẻ phân cách mờ */
     font-size: 15px;
-    font-weight: 500; /* Chữ đậm vừa phải */
+    font-weight: 500; 
     text-align: left;
-    
-    /* Hiệu ứng chuyển động mượt mà khi rê chuột */
-    transition: all 0.2s ease-in-out; 
+    transition: all 0.25s ease-in-out; 
 }
 
-/* Ẩn dòng kẻ dưới cùng của phần tử cuối */
 .suggestion-item:last-child {
     border-bottom: none;
 }
 
-/* 3. Hiệu ứng khi rê chuột (Hover) vào tùy chọn */
 .suggestion-item:hover {
-    background-color: #e8f4fd; /* Đổi nền thành màu xanh nhạt mát mắt */
-    color: #007bff; /* Đổi chữ thành màu xanh dương đậm */
-    padding-left: 25px; /* Hiệu ứng chữ trượt nhẹ sang phải cực kỳ chuyên nghiệp */
-    font-weight: 600; /* Chữ đậm lên một chút */
+    background-color: rgb(0, 0, 0); /* Nền sáng nhẹ lên khi hover */
+    color: #f41111; /* Chữ sáng hẳn lên */
+    padding-left: 25px; /* Hiệu ứng chữ trượt sang phải */
+    font-weight: 600; 
 }
 
-/* 4. Tút lại thanh cuộn (Scrollbar) cho đẹp (Dành cho Chrome, Safari) */
-.suggestions-box::-webkit-scrollbar {
+
+/* =========================================================
+   3. THANH CUỘN DÙNG CHUNG CHO CẢ TÌM KIẾM VÀ SLIDE
+   ========================================================= */
+
+.suggestions-box::-webkit-scrollbar,
+.dropdown-content::-webkit-scrollbar {
     width: 6px;
 }
-.suggestions-box::-webkit-scrollbar-track {
+.suggestions-box::-webkit-scrollbar-track,
+.dropdown-content::-webkit-scrollbar-track {
     background: transparent; 
 }
-.suggestions-box::-webkit-scrollbar-thumb {
-    background: #c1c1c1; 
+.suggestions-box::-webkit-scrollbar-thumb,
+.dropdown-content::-webkit-scrollbar-thumb {
+    background: #444444; /* Màu thanh cuộn tối */
     border-radius: 10px;
 }
-.suggestions-box::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8; 
+.suggestions-box::-webkit-scrollbar-thumb:hover,
+.dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #666666; /* Sáng lên khi di chuột vào thanh cuộn */
 }
